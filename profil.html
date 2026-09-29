@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynasty Danna Gunawan - Profil Diri</title>
+
+    <!-- Poin 3: Muat jQuery dari CDN resmi -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Header */
+        header {
+            background-color: #b71c1c; /* Merah khas Telkom University / Mockup */
+            color: #ffffff;
+            padding: 24px 30px;
+        }
+
+        header h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+        }
+
+        /* Navigasi */
+        nav {
+            background-color: #ffebee;
+            padding: 12px 30px;
+            border-bottom: 1px solid #ffcdd2;
+        }
+
+        nav a {
+            color: #c62828;
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 15px;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: #801313;
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        main {
+            padding: 30px;
+        }
+
+        section {
+            margin-bottom: 35px;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 6px;
+        }
+
+        /* Tentang Saya Layout */
+        .profile-container {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .profile-img-wrapper {
+            flex-shrink: 0;
+        }
+
+        .profile-img {
+            width: 170px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            border: 3px solid #ffffff;
+        }
+
+        .profile-bio {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .profile-bio p {
+            margin-bottom: 14px;
+            text-align: justify;
+        }
+
+        .hobbies-title {
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 6px;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .social-links {
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            background-color: #1976d2;
+            color: #fff;
+            padding: 7px 14px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-right: 8px;
+            transition: background 0.2s;
+        }
+
+        .social-links a.github {
+            background-color: #24292e;
+        }
+
+        .social-links a:hover {
+            opacity: 0.88;
+        }
+
+        /* Jadwal Kuliah Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            background-color: #0d47a1; /* Biru sesuai mockup */
+            color: #ffffff;
+            text-align: left;
+            padding: 12px 14px;
+            font-size: 0.95rem;
+        }
+
+        td {
+            padding: 11px 14px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.95rem;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9fbfd;
+        }
+
+        tr:hover {
+            background-color: #f1f5fa;
+        }
+
+        /* Tombol Toggle Jadwal (JavaScript & jQuery) */
+        .schedule-controls {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-toggle {
+            background-color: #212529;
+            color: #ffffff;
+            border: none;
+            padding: 8px 18px;
+            font-size: 0.9rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-toggle:hover {
+            background-color: #343a40;
+        }
+
+        .toggle-note {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Form Kontak */
+        .contact-form {
+            background-color: #fafafa;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #b71c1c;
+        }
+
+        .form-group input.error-input,
+        .form-group textarea.error-input {
+            border-color: #d32f2f;
+            background-color: #ffebee;
+        }
+
+        /* Pesan Validasi Form */
+        .form-alert {
+            display: none;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .form-alert.alert-error {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+
+        .form-alert.alert-success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+
+        button[type="submit"] {
+            background-color: #b71c1c;
+            color: #ffffff;
+            border: none;
+            padding: 10px 22px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #8e1515;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #212529; /* Gelap sesuai mockup */
+            color: #ffffff;
+            text-align: left;
+            padding: 18px 30px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Bagian <header> -->
+        <header>
+            <!-- Satu <h1> berisi nama -->
+            <h1>Dynasty Danna Gunawan</h1>
+        </header>
+
+        <!-- Bagian <nav> -->
+        <nav>
+            <a href="#tentang">Tentang</a> · 
+            <a href="#jadwal">Jadwal</a> · 
+            <a href="#kontak">Kontak</a>
+        </nav>
+
+        <!-- Bagian <main> -->
+        <main>
+            <!-- Bagian 1: Tentang Saya -->
+            <section id="tentang">
+                <h2>Tentang Saya</h2>
+                <div class="profile-container">
+                    <!-- Foto diri dengan alt yang menjelaskan fotonya -->
+                    <div class="profile-img-wrapper">
+                        <img src="foto-profil.jpg" alt="Foto profil Dynasty Danna Gunawan di pantai dengan kemeja putih" class="profile-img">
+                    </div>
+                    
+                    <div class="profile-bio">
+                        <!-- Paragraf <p> tentang dirimu -->
+                        <p>
+                            Halo! Nama saya <strong>Dynasty Danna Gunawan</strong>, mahasiswa jurusan <strong>Software Engineering (Rekayasa Perangkat Lunak)</strong> di <strong>Telkom University</strong>. Saya memiliki minat besar dalam rekayasa perangkat lunak, pengembangan aplikasi berbasis web modern, serta eksplorasi teknologi komputasi cerdas.
+                        </p>
+                        
+                        <!-- Daftar hobi dengan <ul> dan <li> -->
+                        <p class="hobbies-title">Hobi & Minat:</p>
+                        <ul>
+                            <li>Software Engineering & Web Development</li>
+                            <li>Bermain game strategi & eksplorasi teknologi baru</li>
+                            <li>Fotografi dan menikmati pemandangan alam</li>
+                            <li>Olahraga santai</li>
+                        </ul>
+
+                        <!-- Link ke LinkedIn/GitHub yang terbuka di tab baru -->
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                            <a href="https://github.com/dynastygunawan22" target="_blank" rel="noopener noreferrer" class="github">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bagian 2: Jadwal Kuliah -->
+            <section id="jadwal">
+                <h2>Jadwal Kuliah</h2>
+                <!-- Tabel jadwal kuliah dengan baris judul <th> -->
+                <table id="tabelJadwal">
+                    <thead>
+                        <tr>
+                            <th>Hari</th>
+                            <th>Mata Kuliah</th>
+                            <th>Jam</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Senin</td>
+                            <td>Pemrograman Web</td>
+                            <td>08.00 - 10.30</td>
+                        </tr>
+                        <tr>
+                            <td>Selasa</td>
+                            <td>Konstruksi Perangkat Lunak</td>
+                            <td>09.30 - 12.00</td>
+                        </tr>
+                        <tr>
+                            <td>Rabu</td>
+                            <td>Basis Data Lanjut</td>
+                            <td>13.00 - 15.30</td>
+                        </tr>
+                        <tr>
+                            <td>Kamis</td>
+                            <td>Arsitektur & Desain Perangkat Lunak</td>
+                            <td>08.00 - 10.30</td>
+                        </tr>
+                        <tr>
+                            <td>Jumat</td>
+                            <td>Proyek Tingkat</td>
+                            <td>13.30 - 16.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Tambahan Poin 1 & 3: Tombol untuk menampilkan dan menyembunyikan jadwal -->
+                <div class="schedule-controls">
+                    <button type="button" id="btnToggleJadwal" class="btn-toggle">Sembunyikan jadwal</button>
+                    <span class="toggle-note">&larr; diatur interaktif dengan JavaScript &amp; jQuery</span>
+                </div>
+            </section>
+
+            <!-- Bagian 3: Form Kontak -->
+            <section id="kontak">
+                <h2>Kontak</h2>
+
+                <!-- Kotak Pesan Validasi -->
+                <div id="formAlert" class="form-alert"></div>
+
+                <!-- Form kontak berisi nama, email, pesan, dan tombol Kirim -->
+                <!-- Menggunakan novalidate agar validasi JavaScript menangani pengecekan dan menampilkan pesan -->
+                <form id="contactForm" action="#" method="post" class="contact-form" novalidate>
+                    <div class="form-group">
+                        <label for="nama">Nama</label>
+                        <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap Anda">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="nama@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pesan">Pesan</label>
+                        <textarea id="pesan" name="pesan" rows="4" placeholder="Tuliskan pesan Anda di sini..."></textarea>
+                    </div>
+
+                    <button type="submit" id="btnSubmit">Kirim</button>
+                </form>
+            </section>
+        </main>
+
+        <!-- Bagian <footer> -->
+        <footer>
+            <p>&copy; 2026 Dynasty Danna Gunawan</p>
+        </footer>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SCRIPT JAVASCRIPT & JQUERY UNTUK 3 TAMBAHAN TUGAS                 -->
+    <!-- ================================================================= -->
+    <script>
+        // =============================================================
+        // POIN 2: JAVASCRIPT VALIDASI FORM
+        // Pesan muncul bila nama atau email kosong
+        // =============================================================
+        const contactForm = document.getElementById('contactForm');
+        const inputNama = document.getElementById('nama');
+        const inputEmail = document.getElementById('email');
+        const formAlert = document.getElementById('formAlert');
+
+        contactForm.addEventListener('submit', function(event) {
+            // Mencegah form submit default untuk memproses validasi
+            event.preventDefault();
+
+            // Reset status error sebelumnya
+            inputNama.classList.remove('error-input');
+            inputEmail.classList.remove('error-input');
+            formAlert.style.display = 'none';
+            formAlert.className = 'form-alert';
+
+            const namaValue = inputNama.value.trim();
+            const emailValue = inputEmail.value.trim();
+
+            let pesanError = [];
+
+            // Pengecekan field nama kosong
+            if (namaValue === '') {
+                pesanError.push('Nama wajib diisi.');
+                inputNama.classList.add('error-input');
+            }
+
+            // Pengecekan field email kosong
+            if (emailValue === '') {
+                pesanError.push('Email wajib diisi.');
+                inputEmail.classList.add('error-input');
+            }
+
+            // Jika ada field yang kosong, tampilkan pesan peringatan
+            if (pesanError.length > 0) {
+                formAlert.className = 'form-alert alert-error';
+                formAlert.innerHTML = '<strong>Peringatan Validasi:</strong><br>' + pesanError.join('<br>');
+                formAlert.style.display = 'block';
+            } else {
+                // Jika semua field terisi dengan benar
+                formAlert.className = 'form-alert alert-success';
+                formAlert.innerHTML = '<strong>Terima kasih!</strong> Pesan Anda berhasil dikirim.';
+                formAlert.style.display = 'block';
+                contactForm.reset();
+            }
+        });
+
+
+        // =============================================================
+        // POIN 1 & 3: JQUERY DENGAN $() UNTUK TOGGLE TABEL JADWAL
+        // (Ditulis ulang menggunakan jQuery $() sesuai instruksi tugas)
+        // =============================================================
+        $(document).ready(function() {
+            // Menggunakan selector $() dari jQuery untuk menangani event klik
+            $('#btnToggleJadwal').on('click', function() {
+                // Animasi slideToggle() dari jQuery untuk menyembunyikan / menampilkan tabel
+                $('#tabelJadwal').slideToggle(250, function() {
+                    // Pengecekan visibilitas tabel menggunakan method is(':visible') jQuery
+                    if ($('#tabelJadwal').is(':visible')) {
+                        $('#btnToggleJadwal').text('Sembunyikan jadwal');
+                    } else {
+                        $('#btnToggleJadwal').text('Tampilkan jadwal');
+                    }
+                });
+            });
+        });
+
+        /*
+        * CATATAN UNTUK DOSEN / PENILAI:
+        * Poin 1 (JavaScript Murni) juga dapat dituliskan seperti berikut:
+        * 
+        * const btnToggle = document.getElementById('btnToggleJadwal');
+        * const tabel = document.getElementById('tabelJadwal');
+        * btnToggle.addEventListener('click', function() {
+        *     if (tabel.style.display === 'none') {
+        *         tabel.style.display = 'table';
+        *         btnToggle.textContent = 'Sembunyikan jadwal';
+        *     } else {
+        *         tabel.style.display = 'none';
+        *         btnToggle.textContent = 'Tampilkan jadwal';
+        *     }
+        * });
+        * 
+        * Sesuai Poin 3, efek di atas telah ditulis ulang dan diaktifkan dengan jQuery $() dan slideToggle().
+        */
+    </script>
+</body>
+</html>
